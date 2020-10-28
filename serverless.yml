@@ -1,0 +1,33 @@
+service:
+  name: api-blueprint
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+provider:
+  name: aws
+  region: ${opt:region, 'us-east-1'}
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  apiGateway:
+    minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
+custom:
+  serverless-offline:
+    port: 3000
+
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+
+functions:
+  hello:
+    handler: src/handlers/hello.handler
+    events:
+      - http:
+          path: /
+          method: get
