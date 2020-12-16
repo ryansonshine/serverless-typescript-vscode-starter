@@ -2,6 +2,7 @@ import 'source-map-support/register';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 
 export const handler: APIGatewayProxyHandler = async event => {
+  console.log('Processing event: ', event);
   const response = {
     statusCode: 200,
     body: JSON.stringify(

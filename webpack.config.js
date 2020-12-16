@@ -8,7 +8,7 @@ module.exports = {
   mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
   entry: slsw.lib.entries,
   devtool: slsw.lib.webpack.isLocal
-    ? 'cheap-module-eval-source-map'
+    ? 'eval-cheap-module-source-map'
     : 'source-map',
   resolve: {
     extensions: ['.mjs', '.json', '.ts'],
@@ -21,7 +21,12 @@ module.exports = {
     filename: '[name].js',
   },
   target: 'node',
+  externalsPresets: { node: true },
   externals: [nodeExternals()],
+  optimization: {
+    // Temporary workaround for https://github.com/serverless-heaven/serverless-webpack/issues/651
+    concatenateModules: false,
+  },
   module: {
     rules: [
       // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
