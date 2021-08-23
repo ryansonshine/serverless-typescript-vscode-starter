@@ -11,6 +11,7 @@ const serverlessConfiguration: AWS = {
     // @ts-expect-error https://github.com/serverless/typescript/issues/11
     region: "${opt:region, 'us-east-1'}",
     stage: "${opt:stage, 'dev'}",
+    lambdaHashingVersion: '20201221', // https://www.serverless.com/framework/docs/deprecations/#LAMBDA_HASHING_VERSION_V2
     apiGateway: {
       minimumCompressionSize: 1024, // Enable gzip compression for responses > 1 KB
       shouldStartNameWithService: true,
